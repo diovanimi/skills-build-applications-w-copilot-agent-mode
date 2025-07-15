@@ -1,11 +1,10 @@
-
 import React, { useEffect, useState } from 'react';
 
 function Activities() {
   const [activities, setActivities] = useState([]);
 
   useEffect(() => {
-    fetch('https://special-funicular-vq9g5j9xqqvhq67-8000.app.github.dev/api/activity/')
+    fetch('https://special-funicular-vq9g5j9xqqvhq67-8000.app.github.dev/api/activity/?format=api')
       .then(response => response.json())
       .then(data => setActivities(data))
       .catch(error => console.error('Erro ao buscar atividades:', error));
