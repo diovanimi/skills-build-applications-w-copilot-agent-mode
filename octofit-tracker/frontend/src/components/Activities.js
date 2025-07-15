@@ -1,4 +1,6 @@
 
+import React, { useEffect, useState } from 'react';
+
 function Activities() {
   const [activities, setActivities] = useState([]);
 
@@ -26,7 +28,7 @@ function Activities() {
             <tbody>
               {activities.map(activity => (
                 <tr key={activity._id}>
-                  <td>{activity.user}</td>
+                  <td>{activity.user && typeof activity.user === 'object' ? activity.user.username : activity.user}</td>
                   <td>{activity.activity_type}</td>
                   <td>{activity.duration}</td>
                 </tr>
