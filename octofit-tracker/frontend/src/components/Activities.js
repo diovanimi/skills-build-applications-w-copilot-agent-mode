@@ -2,13 +2,27 @@ import React, { useEffect, useState } from 'react';
 
 function Activities() {
   const [activities, setActivities] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch('https://special-funicular-vq9g5j9xqqvhq67-8000.app.github.dev/api/activity/?format=api')
-      .then(response => response.json())
-      .then(data => setActivities(data))
-      .catch(error => console.error('Erro ao buscar atividades:', error));
+      .then(response => {
+        if (!response.ok) throw new Error('Erro ao buscar atividades');
+        return response.json();
+      })
+      .then(data => {
+        setActivities(Array.isArray(data) ? data : []);
+        setLoading(false);
+      })
+      .catch(error => {
+        setError(error.message);
+        setLoading(false);
+      });
   }, []);
+
+  if (loading) return <div className="text-center mt-4">Carregando atividades...</div>;
+  if (error) return <div className="alert alert-danger mt-4">{error}</div>;
 
   return (
     <div>
@@ -25,13 +39,17 @@ function Activities() {
               </tr>
             </thead>
             <tbody>
-              {activities.map(activity => (
-                <tr key={activity._id}>
-                  <td>{activity.user && typeof activity.user === 'object' ? activity.user.username : activity.user}</td>
-                  <td>{activity.activity_type}</td>
-                  <td>{activity.duration}</td>
-                </tr>
-              ))}
+              {activities.length === 0 ? (
+                <tr><td colSpan={3} className="text-center">Nenhuma atividade encontrada.</td></tr>
+              ) : (
+                activities.map(activity => (
+                  <tr key={activity._id || Math.random()}>
+                    <td>{activity.user && typeof activity.user === 'object' ? activity.user.username : activity.user || '-'}</td>
+                    <td>{activity.activity_type || '-'}</td>
+                    <td>{activity.duration || '-'}</td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
           <button className="btn btn-primary mt-3" onClick={() => window.location.reload()}>Atualizar</button>
