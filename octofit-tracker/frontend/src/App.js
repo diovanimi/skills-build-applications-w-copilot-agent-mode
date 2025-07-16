@@ -5,9 +5,9 @@ import Leaderboard from './components/Leaderboard';
 import Teams from './components/Teams';
 import Users from './components/Users';
 import Workouts from './components/Workouts';
-import logo from '../public/octofitapp-small.png';
 
 function App() {
+  const logo = process.env.PUBLIC_URL + '/octofitapp-small.png';
   return (
     <Router>
       <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
