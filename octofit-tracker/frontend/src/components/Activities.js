@@ -6,7 +6,7 @@ function Activities() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('${process.env.REACT_APP_API_URL}/api/activities/')
+    fetch('https://special-funicular-vq9g5j9xqqvhq67-8000.app.github.dev/api/activity/?format=json')
       .then(async response => {
         if (!response.ok) throw new Error('Erro ao buscar atividades');
         const text = await response.text();
