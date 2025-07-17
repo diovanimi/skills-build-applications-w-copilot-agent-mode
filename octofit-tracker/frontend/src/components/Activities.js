@@ -7,9 +7,14 @@ function Activities() {
 
   useEffect(() => {
     fetch('https://special-funicular-vq9g5j9xqqvhq67-8000.app.github.dev/api/activity/?format=api')
-      .then(response => {
+      .then(async response => {
         if (!response.ok) throw new Error('Erro ao buscar atividades');
-        return response.json();
+        const text = await response.text();
+        try {
+          return JSON.parse(text);
+        } catch (e) {
+          throw new Error('Resposta inesperada da API. Verifique se a URL está correta e o backend está rodando.');
+        }
       })
       .then(data => {
         setActivities(Array.isArray(data) ? data : []);

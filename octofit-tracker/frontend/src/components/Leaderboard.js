@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 
 function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
