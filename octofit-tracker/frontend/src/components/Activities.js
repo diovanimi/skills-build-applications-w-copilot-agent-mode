@@ -49,7 +49,14 @@ function Activities() {
               ) : (
                 activities.map(activity => (
                   <tr key={activity._id || Math.random()}>
-                    <td>{activity.user && typeof activity.user === 'object' ? activity.user.username : activity.user || '-'}</td>
+                    <td>{
+                      activity.user
+                        ? (typeof activity.user === 'object' && activity.user.username)
+                          || (typeof activity.user === 'string' && activity.user.startsWith('User object (')
+                            ? activity.user.replace('User object (', '').replace(')', '')
+                            : activity.user)
+                        : '-'
+                    }</td>
                     <td>{activity.activity_type || '-'}</td>
                     <td>{activity.duration || '-'}</td>
                   </tr>
