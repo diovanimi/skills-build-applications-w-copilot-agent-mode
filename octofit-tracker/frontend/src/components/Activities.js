@@ -6,7 +6,7 @@ function Activities() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('https://special-funicular-vq9g5j9xqqvhq67-8000.app.github.dev/api/activity/?format=api')
+    fetch('https://special-funicular-vq9g5j9xqqvhq67-8000.app.github.dev/api/activity/?format=json')
       .then(async response => {
         if (!response.ok) throw new Error('Erro ao buscar atividades');
         const text = await response.text();
