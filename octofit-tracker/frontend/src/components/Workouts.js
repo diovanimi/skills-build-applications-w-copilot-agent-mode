@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 
 function Workouts() {
   const [workouts, setWorkouts] = useState([]);
